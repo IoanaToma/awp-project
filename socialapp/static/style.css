@@ -1,0 +1,9 @@
+.errorlist {
+    color: red;
+    float: right;
+    -webkit-margin-after: 0em;
+}
+
+h1 {
+    color: blue;
+}

@@ -1,4 +1,7 @@
 {% extends 'layout.html' %}
+
+{% block title %} My social network {% endblock %}
+
 {% block content %}
   <h2>News feed</h2>
   <form method="post">
@@ -6,13 +9,14 @@
     {{ form.as_p }}
     <input type="submit" value="Post">
   </form>
+
   {% for post in posts %}
     <div class="user-post">
       <hr>
       <p>{{ post.author }}</p>
       <p>{{ post.date_added }}</p>
       <p>
-        {{ post.text | slice:":15" }} ...
+        {{ post.text | slice:":15" }} [...]
         <a href="{% url 'post_details' post.pk %}">See more</a>
       </p>
     </div>

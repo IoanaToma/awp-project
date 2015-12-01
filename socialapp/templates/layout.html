@@ -1,6 +1,8 @@
+{% load staticfiles %}
 <html>
   <head>
-    <title>My social network</title>
+    <title>  {% block title %} {% endblock %} </title>
+    <link rel="stylesheet" href="{% static "style.css" %}" />
   </head>
   <body>
     <h1>Welcome to my social network!</h1>

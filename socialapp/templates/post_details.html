@@ -1,9 +1,30 @@
 {% extends 'layout.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
 {% block content %}
+  <a href="{% url 'index' %}">Back to news feed</a>
+  
   <h2>Post details</h2>
   <div class="user-post">
     <p>{{ post.author }}</p>
     <p>{{ post.date_added }}</p>
     <p>{{ post.text }}</p>
   </div>
+
+  <h3>Comments</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Post comment">
+  </form>
+
+  {% for comment in comments %}
+    <div>
+      <hr>
+        <p> {{ comment.author }} </p>
+        <p> {{ comment.date_added }} </p>
+        <p> {{ comment.text }} </p>
+    </div>
+    {% endfor %}
 {% endblock %}
