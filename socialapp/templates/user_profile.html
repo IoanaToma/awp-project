@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <h2> {{ profile.user.username }}'s Profile </h2>
+  <div>
+    <img src={{ profile.avatar }}>
+    <p> First Name: {{ profile.first_name }} </p>
+    <p> Last Name: {{ profile.last_name }} </p>
+    <p> Birthday: {{ profile.birthday }} </p>
+    <p> Sex: {{ profile.gender }} </p>
+  </div>
+    {% if user == profile.user %}
+      <h5>
+        <a href="{% url 'edit_profile' user.username %}">Edit profile</a>
+      </h5>
+    {% endif %}
+  <a href="{% url 'index' %}"><small>Back</small></a>
+{% endblock %}

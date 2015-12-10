@@ -1,9 +1,10 @@
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from socialapp.forms import UserPostForm, UserPostCommentForm, UserLoginForm
-from socialapp.models import UserPost, UserPostComment
+from socialapp.forms import UserPostForm, UserPostCommentForm, UserLoginForm, EditProfileForm
+from socialapp.models import UserPost, UserPostComment, UserProfile
 
 
 @login_required
@@ -68,3 +69,37 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+@login_required
+def user_profile(request, username):
+    if request.method == 'GET':
+        user = User.objects.filter(username=username)
+        profile = UserProfile.objects.filter(user=user).first()
+        context = {'profile': profile}
+        return render(request, 'user_profile.html', context)
+
+
+@login_required
+def edit_profile(request, username):
+    if request.method == 'GET':
+        form = EditProfileForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'edit_profile.html', context)
+    elif request.method == 'POST':
+        form = EditProfileForm(request.POST)
+        user = User.objects.filter(username=username)
+        profile = UserProfile.objects.filter(user=user).first()
+        if form.is_valid():
+            if form.cleaned_data['first_name']:
+                profile.first_name = form.cleaned_data['first_name']
+            if form.cleaned_data['last_name']:
+                profile.last_name = form.cleaned_data['last_name']
+            if form.cleaned_data['birthday']:
+                profile.birthday = form.cleaned_data['birthday']
+            if form.cleaned_data['sex']:
+                profile.gender = form.cleaned_data['sex']
+            profile.save()
+        return redirect('user_profile', username=username)

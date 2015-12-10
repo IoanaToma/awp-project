@@ -16,7 +16,7 @@
         {% endif %}
       </h3>
       <p>
-        by <b><small>{{ post.author }}</small></b>
+        by <a href="{% url 'user_profile' post.author.username %}"><b><small>{{ post.author }}</small></b></a>
         on <b><small>{{ post.date_added }}</small></b>
       </p>
       <a href="{% url 'post_details' post.pk %}"><small>See more</small></a>

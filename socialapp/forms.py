@@ -1,4 +1,5 @@
-from django.forms import Form, CharField, Textarea, PasswordInput
+from django.forms import Form, CharField, ChoiceField, DateField, \
+        Textarea, PasswordInput, SelectDateWidget
 
 
 class UserPostForm(Form):
@@ -16,3 +17,12 @@ class UserPostCommentForm(Form):
 class UserLoginForm(Form):
     username = CharField(max_length=30)
     password = CharField(widget=PasswordInput)
+
+
+class EditProfileForm(Form):
+    first_name = CharField(max_length=100, required=False)
+    last_name = CharField(max_length=100, required=False)
+    birthday = DateField(widget=SelectDateWidget(
+        empty_label=("Choose Year", "Choose Month", "Choose Day"),
+        ), required=False)
+    sex = ChoiceField(choices=(('M', 'Male'), ('F', 'Female')), required=False)
