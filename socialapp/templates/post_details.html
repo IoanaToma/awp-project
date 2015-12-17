@@ -2,7 +2,7 @@
 {% block content %}
   <div class="user-post">
     <h3>{{ post.text }}</h3>
-    by <b><small>{{ post.author }}</small></b>
+    by <b><small><a href="{% url 'user_profile' post.author.username %}"> {{ post.author }}</a></small></b>
     on <b><small>{{ post.date_added }}</small></b>
   </div>
   <form method="post">
@@ -11,7 +11,7 @@
     <input type="submit" value="Post">
   </form>
   {% for comment in post.comments.all %}
-    <p><b>{{ comment.author }}</b>: {{ comment.text }}</p>
+    <p><b><a href="{% url 'user_profile' comment.author.username %}">{{ comment.author }}</a></b>: {{ comment.text }}</p>
   {% endfor %}
   <a href="{% url 'index' %}"><small>Back</small></a>
 {% endblock %}

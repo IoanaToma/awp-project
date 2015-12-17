@@ -2,7 +2,7 @@
 {% block content %}
   <h2> {{ profile.user.username }}'s Profile </h2>
   <div>
-    <img src={{ profile.avatar.url }} />
+    <img src={{ profile.avatar.url }} style="max-width: 200px; max-height: 200px;"/>
     <p> First Name: {{ profile.first_name }} </p>
     <p> Last Name: {{ profile.last_name }} </p>
     <p> Birthday: {{ profile.birthday }} </p>

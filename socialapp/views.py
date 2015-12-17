@@ -89,23 +89,21 @@ def edit_profile(request, username):
         }
         return render(request, 'edit_profile.html', context)
     elif request.method == 'POST':
-        form = EditProfileForm(request.POST)
+        form = EditProfileForm(request.POST, request.FILES)
         user = User.objects.filter(username=username)
-        profile = UserProfile.objects.get(user=user)
+        profile = UserProfile.objects.filter(user=user).first()
 
-        print "Image is : {0}".format(form['avatar'].value())
-
-        # if form['first_name'].value():
-        #     profile.first_name = form.cleaned_data['first_name']
-        # if form['last_name'].value():
-        #     profile.last_name = form.cleaned_data['last_name']
-        # if form['birthday'].value():
-        #     profile.birthday = form.cleaned_data['birthday']
-        # if form['sex'].value():
-        #     profile.gender = form['sex'].value()
-        if form['avatar'].value() is not None:
-            profile.avatar = form['avatar'].value()
-
-        profile.save()
+        if form.is_valid():
+            if form.cleaned_data['first_name']:
+                profile.first_name = form.cleaned_data['first_name']
+            if form.cleaned_data['last_name']:
+                profile.last_name = form.cleaned_data['last_name']
+            if form.cleaned_data['birthday']:
+                profile.birthday = form.cleaned_data['birthday']
+            if form.cleaned_data['sex']:
+                profile.gender = form.cleaned_data['sex']
+            if form['avatar'].value():
+                profile.avatar = form['avatar'].value()
+            profile.save()
 
         return redirect('user_profile', username=username)
