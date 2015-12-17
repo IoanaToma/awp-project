@@ -39,9 +39,8 @@ class UserProfile(models.Model):
     birthday = models.DateField()
     gender = models.CharField(max_length=1, 
         choices=(('M', 'Male'), ('F', 'Female')), default='M')
-    avatar = models.ImageField(upload_to='Desktop/Python/awp-project/pic-folder',
-        default='http://pethealthsupplements.com.au/wp-content/uploads/2015/06/ \
-        tumblr_static_mom-dog-with-puppies.jpg')
+    avatar = models.ImageField(upload_to='avatars/',
+        default='avatars/dog_with_puppies.jpg')
 
     def __unicode__(self):
         return u'{} @ {}'.format(self.first_name, self.last_name)

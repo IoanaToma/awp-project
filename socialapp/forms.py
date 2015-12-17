@@ -1,5 +1,5 @@
 from django.forms import Form, CharField, ChoiceField, DateField, \
-        Textarea, PasswordInput, SelectDateWidget
+        Textarea, PasswordInput, SelectDateWidget, ImageField
 
 
 class UserPostForm(Form):
@@ -26,3 +26,6 @@ class EditProfileForm(Form):
         empty_label=("Choose Year", "Choose Month", "Choose Day"),
         ), required=False)
     sex = ChoiceField(choices=(('M', 'Male'), ('F', 'Female')), required=False)
+    avatar = ImageField(required=False)
+
+
